@@ -1,0 +1,13 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Searchbars
+    </ion-title>
+  </ion-navbar>
+  <ion-searchbar [(ngModel)]="searchTxt" (ionInput)="getItems()"></ion-searchbar>
+  <ion-list>
+    <ion-item *ngFor="let station of filteredStations">
+      {{ station.name }}
+    </ion-item>
+  </ion-list>
+</ion-header>
