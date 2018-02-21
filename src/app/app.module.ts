@@ -9,6 +9,7 @@ import { FavoritesPage } from '../pages/favorites/favorites';
 import { AdvisoriesPage } from '../pages/advisories/advisories';
 import { TabsPage } from '../pages/tabs/tabs';
 import { SearchStationsPage } from '../pages/search-stations/search-stations';
+import { ToStationsPage } from '../pages/to-stations/to-stations';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -23,7 +24,8 @@ import {HttpClientModule} from "@angular/common/http";
     FavoritesPage,
     AdvisoriesPage,
     TabsPage,
-    SearchStationsPage
+    SearchStationsPage,
+    ToStationsPage
   ],
   imports: [
     BrowserModule,
@@ -40,7 +42,8 @@ import {HttpClientModule} from "@angular/common/http";
     FavoritesPage,
     AdvisoriesPage,
     TabsPage,
-    SearchStationsPage
+    SearchStationsPage,
+    ToStationsPage
   ],
   providers: [
     StatusBar,

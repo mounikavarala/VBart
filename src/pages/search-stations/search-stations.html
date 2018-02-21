@@ -6,7 +6,7 @@
   </ion-navbar>
   <ion-searchbar [(ngModel)]="searchTxt" (ionInput)="getItems()"></ion-searchbar>
   <ion-list>
-    <ion-item *ngFor="let station of filteredStations">
+    <ion-item *ngFor="let station of filteredStations" ngClick="setStation(station)">
       {{ station.name }}
     </ion-item>
   </ion-list>

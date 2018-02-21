@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {HttpErrorResponse} from '@angular/common/http';
 
@@ -7,14 +7,15 @@ import {HttpErrorResponse} from '@angular/common/http';
   selector: 'station-search-page',
   templateUrl: 'search-stations.html'
 })
-export class SearchStationsPage implements OnInit{
+export class SearchStationsPage implements OnInit {
 
-   constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
-   stations: Object[];
+  stations: StationInfo[];
 
-  filteredStations: Object[];
-   searchTxt : String;
+  filteredStations: StationInfo[];
+  searchTxt: String;
 
   getItems() {
 
@@ -25,35 +26,53 @@ export class SearchStationsPage implements OnInit{
     if (this.searchTxt) {
       this.filteredStations = this.stations.filter((item) => {
         return (item.name.toLowerCase().indexOf(this.searchTxt.toLowerCase()) > -1);
-      })
+      });
     } else {
       this.filteredStations = this.stations;
     }
   }
 
-   ngOnInit(){
+  ngOnInit() {
 
-      this.http.get<ItemsResponse>('http://api.bart.gov/api/stn.aspx?cmd=stns&key=MW9S-E7SL-26DU-VV8V&json=y')
-        .subscribe((data) => {
+    this.http.get<StationsResponse>('http://api.bart.gov/api/stn.aspx?cmd=stns&key=MW9S-E7SL-26DU-VV8V&json=y')
+      .subscribe((data) => {
 
-            this.filteredStations = this.stations = data.root['stations']['station'];
+          this.filteredStations = this.stations = data['root']['stations']['station'];
 
-            console.log(this.stations);
-          },
+          console.log(this.stations);
+        },
 
-          (err: HttpErrorResponse) => {
-            if (err.error instanceof Error) {
-              console.log('An error occurred:', err.error.message);
-            } else {
-              console.log(`Backend returned code ${err.status}, body was: ${err.error}`);
-            }
+        (err: HttpErrorResponse) => {
+          if (err.error instanceof Error) {
+            console.log('An error occurred:', err.error.message);
+          } else {
+            console.log(`Backend returned code ${err.status}, body was: ${err.error}`);
           }
-        );
+        }
+      );
 
-   }
+  }
 
 }
 
-interface ItemsResponse{
-  root: Object;
+interface StationsResponse {
+  root : Stations;
+}
+
+interface Stations {
+  stations : Station
+}
+
+interface Station {
+  station : Array<StationInfo>
+}
+interface StationInfo {
+  name : String;
+  abbr : String;
+  address : String;
+  county : String;
+  state : String;
+  zipcode : String;
+  gtfs_latitude : String;
+  gtfs_longitude : String;
 }
