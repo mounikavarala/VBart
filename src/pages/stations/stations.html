@@ -11,11 +11,11 @@
           <div class = "btn">
             <div>
               <ion-row justify-content-center>
-                <ion-col col-6><button ion-button block [navPush]="page" >From</button></ion-col>
+                <ion-col col-6><button ion-button block (click)="goToSearch('from')" >From {{ fromStation ? (": " + fromStation.name) : ""}}</button></ion-col>
               </ion-row></div>
             <div>
               <ion-row justify-content-center>
-                <ion-col col-6 ><button ion-button block > To</button></ion-col>
+                <ion-col col-6 ><button ion-button block (click)="goToSearchTo()" >To {{ toStation ? (": " + toStation.name) : ""}}</button></ion-col>
               </ion-row>
             </div>
             <div class="flip-btn">

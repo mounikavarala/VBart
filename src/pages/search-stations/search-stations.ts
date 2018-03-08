@@ -1,7 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {HttpErrorResponse} from '@angular/common/http';
-
+import { NavParams } from 'ionic-angular';
+import {StationsService} from "../services/StationsService";
+import {NavController} from "ionic-angular";
+import {StationsPage} from "../stations/stations";
 
 @Component({
   selector: 'station-search-page',
@@ -9,8 +12,19 @@ import {HttpErrorResponse} from '@angular/common/http';
 })
 export class SearchStationsPage implements OnInit {
 
-  constructor(private http: HttpClient) {
+  pageType : string;
+  stationsPage = StationsPage;
+
+  constructor(private http: HttpClient, private navParams : NavParams, public stationsService : StationsService, private navCtrl : NavController) {
+    this.pageType = this.navParams.get('pageType');
   }
+
+  setStation(station) {
+    // alert(this.pageType);
+    this.stationsService[this.pageType] = station;
+    this.navCtrl.push(this.stationsPage);
+
+  };
 
   stations: StationInfo[];
 
